@@ -1,0 +1,28 @@
+pkts = rdpcap('dump.pcap')                                                                                                                        
+print(len(pkts))
+num_pkts = len(pkts) 
+
+for i in range(num_pkts): 
+    pkt = pkts[i] 
+    if pkt.haslayer(ARP): 
+        pkt.display()
+
+arp_list = [] 
+ for i in range(num_pkts): 
+    pkt = pkts[i] 
+    if pkt.haslayer(ARP): 
+        arp_list.append(pkt) 
+
+pktlen_list = []
+for pkt in arp_list:
+    pktlen_list.append(len(pkt))
+
+print(pktlen_list)
+
+import numpy as np
+mean = np.mean(pktlen_list)
+std = np.std(pktlen_list)
+
+print(mean)
+print(std)
+
